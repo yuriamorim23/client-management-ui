@@ -1,14 +1,25 @@
 <div class="login-container">
-  <form class="login-form" (submit)="onSubmit()">
+  <form class="login-form" (submit)="onSubmit()" #loginForm="ngForm" novalidate>
     <h2>Login</h2>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required />
+      <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email"
+             required email #emailField="ngModel">
+      <div *ngIf="submitAttempted && emailField.errors" class="error">
+        <p *ngIf="emailField.errors['required']">Email is required.</p>
+        <p *ngIf="emailField.errors['email']">Please enter a valid email address.</p>
+      </div>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password" required />
+      <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password"
+             required minlength="2" #passwordField="ngModel">
+      <div *ngIf="submitAttempted && passwordField.errors" class="error">
+        <p *ngIf="passwordField.errors['required']">Password is required.</p>
+        <p *ngIf="passwordField.errors['minlength']">Password must be at least 6 characters long.</p>
+      </div>
     </div>
     <button type="submit">Login</button>
+    <p *ngIf="loginError" class="error">{{ errorMessage }}</p>
   </form>
 </div>

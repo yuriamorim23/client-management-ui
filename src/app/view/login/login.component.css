@@ -84,3 +84,7 @@
     transform: translateY(0);
   }
   
+  .error {
+    color: red;
+  }
+  

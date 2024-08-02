@@ -18,23 +18,33 @@ export class AuthService {
         tap(response => {
           if (response.body && response.body.token) {
             localStorage.setItem('token', response.body.token);
+            localStorage.setItem('expiresAt', response.body.expiresAt.toString());
             this.router.navigate(['/home']);
           }
         }),
         catchError(error => {
-          // Aqui você pode tratar o erro ou retransmitir para ser tratado no componente
           return throwError(() => error);
         })
       );
   }
-  
 
   logout(): void {
-    localStorage.removeItem('token');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresAt');
+    }
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
+    const token = localStorage.getItem('token');
+    const expiresAt = localStorage.getItem('expiresAt');
+    if (token && expiresAt) {
+      return Date.now() < parseInt(expiresAt);
+    }
+    return false;
   }
 }

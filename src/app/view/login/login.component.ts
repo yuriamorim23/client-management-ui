@@ -29,7 +29,7 @@ export class LoginComponent implements OnDestroy {
     if (!this.loginForm.valid) {
       this.loginError = true;
       this.errorMessage = "Please check your entries and try again.";
-      return; // Evitar que a execução continue se o formulário não estiver válido.
+      return;
     }
   
     this.subscription.add(
@@ -42,7 +42,6 @@ export class LoginComponent implements OnDestroy {
         error: (error) => {
           console.error('Login failed', error);
           this.loginError = true;
-          // Ajuste para diferenciar corretamente entre os erros de email e senha
           if (error.status === 404) {
             this.errorMessage = 'Email does not exist.';
           } else if (error.status === 401) {

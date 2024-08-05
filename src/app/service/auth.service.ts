@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
+import { DecodedToken } from '../interfaces/decoded-token.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +48,18 @@ export class AuthService {
       return Date.now() < parseInt(expiresAt);
     }
     return false;
+  }
+
+  getUserEmail(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      return decoded.sub;
+    } catch (error) {
+      return null;
+    }
   }
 }

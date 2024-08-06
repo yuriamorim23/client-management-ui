@@ -1,90 +1,162 @@
 :host {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  font-family: 'Arial', sans-serif;
+}
+
+.login-container {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .login-container {
-    background: #fff;
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    animation: fadeIn 1s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .login-form h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #333;
-    font-size: 2rem;
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
-    font-size: 1.1rem;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-  }
-  
-  .form-group input:focus {
-    border-color: #6a11cb;
-    outline: none;
-  }
-  
-  button {
-    padding: 0.75rem;
-    background-color: #6a11cb;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  button:hover {
-    background-color: #2575fc;
-    transform: translateY(-2px);
-  }
-  
-  button:active {
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  
-  .error {
-    color: red;
-  }
-  
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #6a11cb;
+  outline: none;
+}
+
+button {
+  padding: 0.75rem;
+  background-color: #6a11cb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-bottom: 1rem;
+}
+
+button:hover {
+  background-color: #a3acf0;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: red;
+}
+
+.register-text {
+  text-align: center;
+  margin-top: 1rem;
+  color: #555;
+  font-size: 1rem;
+}
+
+.register-text a {
+  color: #6a11cb;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.register-text a:hover {
+  color: #a3acf0;
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+.popup h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 2rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button {
+  background-color: #ff0000;
+  margin-left: 1rem;
+}
+
+.cancel-button:hover {
+  background-color: #cc0000;
+}
+
+.popup-success {
+  text-align: center;
+}
+
+.popup-success .success-message {
+  color: green;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}

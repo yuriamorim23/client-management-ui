@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
-import { DecodedToken } from '../interfaces/decoded-token.interface'
+import { DecodedToken } from '../interfaces/decoded-token.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -61,5 +61,18 @@ export class AuthService {
     } catch (error) {
       return null;
     }
+  }
+
+  register(email: string, password: string, role: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register/user`, { email, password, role })
+      .pipe(
+        catchError(error => {
+          let errorMessage = 'An unknown error occurred.';
+          if (error.status === 400 && error.error.error === 'User already exists') {
+            errorMessage = 'Email already exists.';
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
   }
 }

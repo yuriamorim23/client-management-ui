@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnDestroy {
-  
   email: string = '';
   password: string = '';
   loginError: boolean = false;
@@ -20,7 +20,17 @@ export class LoginComponent implements OnDestroy {
   submitAttempted: boolean = false;
   private subscription: Subscription = new Subscription();
 
-  @ViewChild('loginForm') loginForm!: NgForm
+  registerEmail: string = '';
+  registerPassword: string = '';
+  registerRole: string = 'USER';
+  registerSubmitAttempted: boolean = false;
+  isRegisterPopupVisible: boolean = false;
+  registerError: string = '';
+  isSuccessPopupVisible: boolean = false;
+  successMessage: string = '';
+
+  @ViewChild('loginForm') loginForm!: NgForm;
+  @ViewChild('registerForm') registerForm!: NgForm;
 
   constructor(private authService: AuthService) {}
 
@@ -31,7 +41,7 @@ export class LoginComponent implements OnDestroy {
       this.errorMessage = "Please check your entries and try again.";
       return;
     }
-  
+
     this.subscription.add(
       this.authService.login(this.email, this.password).subscribe({
         next: (response) => {
@@ -52,10 +62,52 @@ export class LoginComponent implements OnDestroy {
         }
       })
     );
-    
+  }
+
+  showRegisterPopup(): void {
+    this.isRegisterPopupVisible = true;
+    this.registerError = '';
+  }
+
+  hideRegisterPopup(): void {
+    this.isRegisterPopupVisible = false;
+  }
+
+  showSuccessPopup(message: string): void {
+    this.successMessage = message;
+    this.isSuccessPopupVisible = true;
+  }
+
+  hideSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+  }
+
+  onRegisterSubmit(): void {
+    this.registerSubmitAttempted = true;
+    if (!this.registerForm.valid) {
+      return;
+    }
+
+    this.authService.register(this.registerEmail, this.registerPassword, this.registerRole).subscribe({
+      next: () => {
+        this.hideRegisterPopup();
+        this.registerError = '';
+        this.showSuccessPopup('User created successfully!');
+      },
+      error: (error) => {
+        console.error('Registration failed', error);
+        if (error.message === 'Email already exists.') {
+          this.registerError = 'Email already exists.';
+        } else {
+          this.registerError = 'An unknown error occurred.';
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
+
+

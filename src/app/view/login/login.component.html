@@ -13,13 +13,62 @@
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password"
-             required minlength="2" #passwordField="ngModel">
+             required minlength="3" #passwordField="ngModel">
       <div *ngIf="submitAttempted && passwordField.errors" class="error">
         <p *ngIf="passwordField.errors['required']">Password is required.</p>
-        <p *ngIf="passwordField.errors['minlength']">Password must be at least 6 characters long.</p>
+        <p *ngIf="passwordField.errors['minlength']">Password must be at least 3 characters long.</p>
       </div>
     </div>
     <button type="submit">Login</button>
     <p *ngIf="loginError" class="error">{{ errorMessage }}</p>
+    <p class="register-text">No account yet? <a (click)="showRegisterPopup()">Sign up</a></p>
   </form>
+</div>
+
+<div class="popup-container" *ngIf="isRegisterPopupVisible">
+  <div class="popup">
+    <h2>Register</h2>
+    <form class="register-form" (submit)="onRegisterSubmit()" #registerForm="ngForm" novalidate>
+      <div class="form-group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="Enter your email"
+               required email #registerEmailField="ngModel">
+        <div *ngIf="registerSubmitAttempted && registerEmailField.errors" class="error">
+          <p *ngIf="registerEmailField.errors['required']">Email is required.</p>
+          <p *ngIf="registerEmailField.errors['email']">Please enter a valid email address.</p>
+        </div>
+        <div *ngIf="registerError" class="error">{{ registerError }}</div>
+      </div>
+      <div class="form-group">
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="Enter your password"
+               required minlength="3" #registerPasswordField="ngModel">
+        <div *ngIf="registerSubmitAttempted && registerPasswordField.errors" class="error">
+          <p *ngIf="registerPasswordField.errors['required']">Password is required.</p>
+          <p *ngIf="registerPasswordField.errors['minlength']">Password must be at least 3 characters long.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="register-role">Role</label>
+        <select id="register-role" [(ngModel)]="registerRole" name="registerRole" required #registerRoleField="ngModel">
+          <option value="USER">User</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+        <div *ngIf="registerSubmitAttempted && registerRoleField.errors" class="error">
+          <p *ngIf="registerRoleField.errors['required']">Role is required.</p>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="submit">Register</button>
+        <button type="button" class="cancel-button" (click)="hideRegisterPopup()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="popup-container" *ngIf="isSuccessPopupVisible">
+  <div class="popup popup-success">
+    <p class="success-message">User created successfully!</p>
+    <button (click)="hideSuccessPopup()">OK</button>
+  </div>
 </div>

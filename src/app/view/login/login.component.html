@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="button-container">
-        <button type="submit">Register</button>
+        <button type="submit">Submit</button>
         <button type="button" class="cancel-button" (click)="hideRegisterPopup()">Cancel</button>
       </div>
     </form>
@@ -71,6 +71,6 @@
 <div class="popup-container" *ngIf="isSuccessPopupVisible">
   <div class="popup popup-success">
     <p class="success-message">User created successfully!</p>
-    <button (click)="hideSuccessPopup()">OK</button>
+    <button class="button-success" (click)="hideSuccessPopup()">OK</button>
   </div>
 </div>

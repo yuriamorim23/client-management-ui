@@ -144,6 +144,7 @@ button:active {
   text-align: center;
   color: green;
   font-size: 1.2rem;
+  width: 380px;
 }
 
 .button-success{

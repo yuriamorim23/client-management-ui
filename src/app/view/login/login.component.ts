@@ -101,7 +101,6 @@ export class LoginComponent implements OnDestroy {
         this.showSuccessPopup();
       },
       error: (error) => {
-        console.error('Registration failed', error);
         if (error.message === 'Email already exists.') {
           this.registerError = 'Email already exists.';
         } else {

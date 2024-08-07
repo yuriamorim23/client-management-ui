@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnDestroy {
   email: string = '';
   password: string = '';
@@ -25,9 +24,8 @@ export class LoginComponent implements OnDestroy {
   registerRole: string = 'USER';
   registerSubmitAttempted: boolean = false;
   isRegisterPopupVisible: boolean = false;
-  registerError: string = '';
   isSuccessPopupVisible: boolean = false;
-  successMessage: string = '';
+  registerError: string = '';
 
   @ViewChild('loginForm') loginForm!: NgForm;
   @ViewChild('registerForm') registerForm!: NgForm;
@@ -50,7 +48,6 @@ export class LoginComponent implements OnDestroy {
           this.errorMessage = '';
         },
         error: (error) => {
-          console.error('Login failed', error);
           this.loginError = true;
           if (error.status === 404) {
             this.errorMessage = 'Email does not exist.';
@@ -66,6 +63,10 @@ export class LoginComponent implements OnDestroy {
 
   showRegisterPopup(): void {
     this.isRegisterPopupVisible = true;
+    this.registerSubmitAttempted = false;
+    this.registerEmail = '';
+    this.registerPassword = '';
+    this.registerRole = 'USER';
     this.registerError = '';
   }
 
@@ -73,13 +74,18 @@ export class LoginComponent implements OnDestroy {
     this.isRegisterPopupVisible = false;
   }
 
-  showSuccessPopup(message: string): void {
-    this.successMessage = message;
+  showSuccessPopup(): void {
     this.isSuccessPopupVisible = true;
   }
 
   hideSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
+  }
+
+  onRegisterEmailInput(): void {
+    if (!this.registerEmail) {
+      this.registerError = '';
+    }
   }
 
   onRegisterSubmit(): void {
@@ -92,7 +98,7 @@ export class LoginComponent implements OnDestroy {
       next: () => {
         this.hideRegisterPopup();
         this.registerError = '';
-        this.showSuccessPopup('User created successfully!');
+        this.showSuccessPopup();
       },
       error: (error) => {
         console.error('Registration failed', error);
@@ -109,5 +115,3 @@ export class LoginComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 }
-
-

@@ -5,22 +5,24 @@
       <label for="email">Email</label>
       <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email"
              required email #emailField="ngModel">
-      <div *ngIf="submitAttempted && emailField.errors" class="error">
-        <p *ngIf="emailField.errors['required']">Email is required.</p>
-        <p *ngIf="emailField.errors['email']">Please enter a valid email address.</p>
+      <div class="error-placeholder">
+        <p *ngIf="submitAttempted && emailField.errors?.['required']" class="error">Email is required.</p>
+        <p *ngIf="submitAttempted && emailField.errors?.['email']" class="error">Please enter a valid email address.</p>
       </div>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password"
              required minlength="3" #passwordField="ngModel">
-      <div *ngIf="submitAttempted && passwordField.errors" class="error">
-        <p *ngIf="passwordField.errors['required']">Password is required.</p>
-        <p *ngIf="passwordField.errors['minlength']">Password must be at least 3 characters long.</p>
+      <div class="error-placeholder">
+        <p *ngIf="submitAttempted && passwordField.errors?.['required']" class="error">Password is required.</p>
+        <p *ngIf="submitAttempted && passwordField.errors?.['minlength']" class="error">Password must be at least 3 characters long.</p>
       </div>
     </div>
     <button type="submit">Login</button>
-    <p *ngIf="loginError" class="error">{{ errorMessage }}</p>
+    <div class="error-placeholder">
+      <p *ngIf="loginError" class="error-login">{{ errorMessage }}</p>
+    </div>
     <p class="register-text">No account yet? <a (click)="showRegisterPopup()">Sign up</a></p>
   </form>
 </div>
@@ -32,20 +34,19 @@
       <div class="form-group">
         <label for="register-email">Email</label>
         <input type="email" id="register-email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="Enter your email"
-               required email #registerEmailField="ngModel">
-        <div *ngIf="registerSubmitAttempted && registerEmailField.errors" class="error">
-          <p *ngIf="registerEmailField.errors['required']">Email is required.</p>
-          <p *ngIf="registerEmailField.errors['email']">Please enter a valid email address.</p>
+               required email (input)="onRegisterEmailInput()" #registerEmailField="ngModel">
+        <div class="error-placeholder">
+          <p *ngIf="registerSubmitAttempted && registerEmailField.errors?.['required'] && !registerError" class="error">Email is required.</p>
+          <p *ngIf="registerError" class="error">{{ registerError }}</p>
         </div>
-        <div *ngIf="registerError" class="error">{{ registerError }}</div>
       </div>
       <div class="form-group">
         <label for="register-password">Password</label>
         <input type="password" id="register-password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="Enter your password"
                required minlength="3" #registerPasswordField="ngModel">
-        <div *ngIf="registerSubmitAttempted && registerPasswordField.errors" class="error">
-          <p *ngIf="registerPasswordField.errors['required']">Password is required.</p>
-          <p *ngIf="registerPasswordField.errors['minlength']">Password must be at least 3 characters long.</p>
+        <div class="error-placeholder">
+          <p *ngIf="registerSubmitAttempted && registerPasswordField.errors?.['required']" class="error">Password is required.</p>
+          <p *ngIf="registerSubmitAttempted && registerPasswordField.errors?.['minlength']" class="error">Password must be at least 3 characters long.</p>
         </div>
       </div>
       <div class="form-group">
@@ -54,11 +55,11 @@
           <option value="USER">User</option>
           <option value="ADMIN">Admin</option>
         </select>
-        <div *ngIf="registerSubmitAttempted && registerRoleField.errors" class="error">
-          <p *ngIf="registerRoleField.errors['required']">Role is required.</p>
+        <div class="error-placeholder">
+          <p *ngIf="registerSubmitAttempted && registerRoleField.errors?.['required']" class="error">Role is required.</p>
         </div>
       </div>
-      <div class="button-group">
+      <div class="button-container">
         <button type="submit">Register</button>
         <button type="button" class="cancel-button" (click)="hideRegisterPopup()">Cancel</button>
       </div>

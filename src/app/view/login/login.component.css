@@ -9,7 +9,7 @@
 
 .login-container {
   background: #fff;
-  padding: 3rem;
+  padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   width: 400px;
@@ -43,6 +43,7 @@
 
 .form-group {
   margin-bottom: 1.5rem;
+  padding: 0 1rem; /* Adiciona espaçamento nas laterais */
 }
 
 .form-group label {
@@ -54,7 +55,7 @@
 
 .form-group input,
 .form-group select {
-  width: 100%;
+  width: calc(100% - 2rem); /* Ajusta a largura dos inputs */
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -78,7 +79,7 @@
 }
 
 button {
-  padding: 0.75rem;
+  padding: 0.5rem; /* Reduz o tamanho do botão */
   background-color: #6a11cb;
   color: #fff;
   border: none;
@@ -87,6 +88,8 @@ button {
   font-size: 1.2rem;
   transition: background-color 0.3s, transform 0.3s;
   margin-bottom: 1rem;
+  width: 200px; /* Define uma largura fixa para o botão */
+  align-self: center; /* Centraliza o botão */
 }
 
 button:hover {
@@ -131,7 +134,7 @@ button:active {
 
 .popup {
   background: #fff;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   width: 400px;
@@ -162,4 +165,8 @@ button:active {
   color: red;
   text-align: center;
   margin: 0;
+}
+
+.button-container{
+  display: flex;
 }

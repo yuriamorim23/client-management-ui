@@ -14,7 +14,7 @@ FROM node:20-alpine AS production-stage
 
 WORKDIR /app
 
-COPY --from=build-stage /app/dist/client-managemente-ui ./dist/client-managemente-ui
+COPY --from=build-stage /app/dist/client-management-ui ./dist/client-management-ui
 
 COPY --from=build-stage /app/server.ts ./
 COPY --from=build-stage /app/package*.json ./

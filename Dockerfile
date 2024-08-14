@@ -23,4 +23,4 @@ RUN npm install --only=production
 
 EXPOSE 4000
 
-CMD ["node", "dist/client-managemente-ui/server/server.mjs"]
+CMD ["node", "dist/client-management-ui/server/server.mjs"]

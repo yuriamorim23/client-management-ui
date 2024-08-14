@@ -3,10 +3,10 @@ name: Build and Push Docker Image for UI
 on:
   push:
     branches:
-      - main  # Execute o workflow quando houver push na branch main
+      - main
   pull_request:
     branches:
-      - main  # Execute o workflow em pull requests na branch main
+      - main
 
 env:
   REGISTRY: docker.io
@@ -35,4 +35,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/yuritech/client-managemente-ui:latest

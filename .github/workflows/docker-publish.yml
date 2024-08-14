@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: yuritech/client-managemente-ui
+  IMAGE_NAME: yuritech/client-management-ui
 
 jobs:
   build:
@@ -35,4 +35,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/yuritech/client-managemente-ui:latest
+          tags: ${{ env.REGISTRY }}/yuritech/client-management-ui:latest

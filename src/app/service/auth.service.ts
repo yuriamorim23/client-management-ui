@@ -10,7 +10,7 @@ import { DecodedToken } from '../interfaces/decoded-token.interface';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8082/auth/noEndPoint';
+  private apiUrl = 'http://localhost:8082/auth/noEndPointFinal';
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
@@ -93,7 +94,6 @@ body {
 
 .content {
   flex: 1;
-  padding: 40px;
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }

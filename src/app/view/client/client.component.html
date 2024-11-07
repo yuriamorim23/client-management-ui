@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="header">
+    <h1>Client List</h1>
+  </div>
+
+  <div class="filter-bar">
+    <input
+      type="text"
+      placeholder="Search by name"
+      [(ngModel)]="searchTerm"
+      (input)="applyFilters()"
+    />
+    <div class="sort-buttons">
+      <button class="new-client-btn" (click)="addNewClient()">
+        <span>+</span> New Client
+      </button>
+      <button (click)="sortByName('asc')">Sort A-Z</button>
+      <button (click)="sortByName('desc')">Sort Z-A</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="client-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of paginatedClients">
+          <td>{{ client.name }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone }}</td>
+          <td>{{ client.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button
+      class="page-btn"
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="setPage(i + 1)"
+      [class.active]="currentPage === i + 1">
+      {{ i + 1 }}
+    </button>
+  </div>
+</div>

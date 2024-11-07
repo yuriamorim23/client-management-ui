@@ -1,4 +1,4 @@
-name: Build and Push Docker Image for UI
+name: Build and Push Docker Image for UI and Deploy to AWS EC2
 
 on:
   push:
@@ -14,7 +14,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -36,3 +35,23 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/yuritech/client-management-ui:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH and Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.AWS_EC2_IP }}
+          username: ec2-user
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            # Baixar a nova imagem do Docker Hub
+            docker pull ${REGISTRY}/${IMAGE_NAME}:latest
+            # Parar o contêiner em execução, se houver
+            docker stop frontend || true
+            docker rm frontend || true
+            # Iniciar o novo contêiner
+            docker run -d --name frontend -p 80:80 ${REGISTRY}/${IMAGE_NAME}:latest

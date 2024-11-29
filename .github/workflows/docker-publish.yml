@@ -45,13 +45,19 @@ jobs:
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.AWS_EC2_IP }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
+            # Definir as variáveis de ambiente diretamente no script
+            REGISTRY="${{ env.REGISTRY }}"
+            IMAGE_NAME="${{ env.IMAGE_NAME }}"
+            
             # Baixar a nova imagem do Docker Hub
-            docker pull ${REGISTRY}/${IMAGE_NAME}:latest
+            docker pull $REGISTRY/$IMAGE_NAME:latest
+            
             # Parar o contêiner em execução, se houver
             docker stop frontend || true
             docker rm frontend || true
-            # Iniciar o novo contêiner
-            docker run -d --name frontend -p 80:80 ${REGISTRY}/${IMAGE_NAME}:latest
+            
+            # Iniciar o novo contêiner com o mapeamento correto de portas
+            docker run -d --name frontend -p 80:4000 $REGISTRY/$IMAGE_NAME:latest

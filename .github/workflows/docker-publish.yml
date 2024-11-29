@@ -59,5 +59,8 @@ jobs:
             docker stop frontend || true
             docker rm frontend || true
             
+            # Remover a imagem antiga, se houver
+            docker rmi $REGISTRY/$IMAGE_NAME:latest || true
+            
             # Iniciar o novo contêiner com o mapeamento correto de portas
             docker run -d --name frontend -p 80:4000 $REGISTRY/$IMAGE_NAME:latest

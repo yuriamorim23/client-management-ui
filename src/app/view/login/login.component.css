@@ -109,7 +109,8 @@ button:active {
 }
 
 .register-text a {
-  color: #6a11cb;
+  /* color: #6a11cb; */
+  color: #f50404;
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
